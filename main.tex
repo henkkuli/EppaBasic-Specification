@@ -1,0 +1,55 @@
+\documentclass[12pt,a4paper,american]{article}
+
+% Some packages
+\usepackage[american]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage[nomargin,inline,marginclue,draft]{fixme}
+\usepackage{comment}
+\usepackage{hyperref}
+\usepackage{fixltx2e}
+
+% Token command
+\newcommand\token[1]{\hyperref[token:#1]{#1}}
+\newcommand\sub[1]{$_{#1}$}
+
+
+% Grammar environment
+\newcommand\actifygrammar{
+	\catcode`\<\active
+	\catcode`\>\active
+}
+\newcommand\deactifygrammar{
+	%\makeother\<
+	%\makeother\>
+}
+
+\begingroup
+\actifygrammar
+	\gdef\defparent{
+		\catcode`\<\active
+		\catcode`\>\active
+		\def<{%
+			\egroup\textit\bgroup%
+		}
+		\def>{%
+			\egroup\textbf\bgroup%
+		}
+	}
+\endgroup
+
+\newenvironment{grammar}{
+	\begingroup
+	\defparent
+	\ttfamily
+	\obeylines%
+	\textbf\bgroup%
+}{%
+	\egroup%
+	\endgroup
+}
+
+\begin{document}
+	\input{syntax}
+\end{document}

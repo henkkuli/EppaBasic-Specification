@@ -1,0 +1,116 @@
+\subsection{Statement}
+\label{statement}
+A statement is the basic unit of source code.
+Generally one statement occupies one line,
+though in some cases multiple statements can be on the same line
+and mutually one statement can be divided to multiple lines.
+The division of statement to multiple lines can happen
+at any time using \token{\string_}-token between individual tokens.
+
+\subsubsection{Variable Definition}
+\label{stat:vardes}
+A variable definition defines a variable.
+The defined variable has a \hyperref[scope]{scope}.
+The definition must have either a \hyperref[type]{type} or an \hyperref[expr]{expression} or both.
+If only expression is defined, the type of the variable is the type of the \hyperref[expr]{expression}.
+If both \hyperref[type]{type} and \hyperref[expr]{expression} are defined, the \hyperref[expr]{expression} \hyperref[type]{type} is casted to \hyperref[type]{type}.
+
+\begin{grammar}
+Dim <identifier> As <type>
+Dim <identifier> As <type> = <expression>
+Dim <identifier> = <expression>
+\end{grammar}
+
+\subsubsection{Variable Assignment}
+\label{stat:varass}
+A variable assignment assigns the value of evaluated expression to the variable $name$
+which is defined earlier in current scope or in one of its parent scopes.
+The assignment follows \hyperref[copying]{copying rules}.
+
+\begin{grammar}
+<identifier>\sub{name} = <expression>
+\end{grammar}
+
+\subsubsection{For}
+\label{stat:for}
+A for statement loops its $body$ exactly $(end - start + 1) / step$ times
+unless the loop is explicitly exited using \token{break}.
+At the beginning of each iteration,
+the $index$ is computed using $start + i \cdot step$,
+where $i \in [0, 1, 2 ...]$ is the number of iteration.
+If no $step$ is specified, $1$ is assumed.
+
+$start$, $end$ and $step$ must all be cast-able to \hyperref[type:number]{number}.
+The index cannot be set with assignment.
+
+\begin{grammar}
+For <identifier>\sub{index} = <expression>\sub{start} To <expression>\sub{end} [Step <expression>\sub{step}]
+~~~~<block>\sub{body}
+Next <identifier>\sub{index}
+\end{grammar}
+
+\subsubsection{If}
+\label{stat:if}
+A if statement is a conditional branch.
+All $cond$-expressions must evaluate to \hyperref[type:boolean]{boolean}.
+First the $cond\_1$ is evaluated.
+If it is true,
+$branch\_2$ the execution is transferred to $branc\_1$.
+Otherwise either next $cond$ in is evaluated if such exists
+or the execution is transferred to the $branch\_else$ if it exists.
+If neither exists the execution is transferred to the statement following $End If$.
+The same happens when any of the $branch$es ends.
+
+All $cond$s must be cast-able to boolean.
+
+\begin{grammar}
+If <expression>\sub{cond\_1} Then
+~~~~<block>\sub{branch\_1}
+[
+Else If <expression>\sub{cond\_2} Then
+~~~~<block>\sub{branch\_2}
+]
+[
+Else If <expression>\sub{cond\_3} Then
+~~~~<block>\sub{branch\_3}
+]
+...
+[
+Else
+~~~~<block>\sub{branch\_else}
+]
+End If
+\end{grammar}
+
+\subsubsection{Do-Loop}
+\label{stat:do}
+A Do-Loop statement executes its content repeatedly.
+If condition is defined in the beginning,
+the condition is first checked before entering the loop.
+If the condition is in the end of the loop,
+the $block$ is executed once before evaluating $cond$.
+If no condition is defined,
+the loop repeats itself forever.
+
+If the condition type is $While$,
+the $block$ is executed as long as the $cond$ evaluates $True$.
+If the condition type is $Until$
+the $block$ is executed as long as the $cond$ evaluates $False$.
+
+The $cond$ must be cast-able to boolean.
+Only one condition may exist in one Do-Loop.
+
+\begin{grammar}
+Do [While|Until <expression>\sub{cond}]
+~~~~<block>
+Loop [While|Until <expression>\sub{cond}]
+\end{grammar}
+
+\subsubsection{Return}
+\label{stat:return}
+
+\subsubsection{Comment}
+\label{stat:comment}
+
+\subsubsection{Include}
+\label{stat:include}

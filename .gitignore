@@ -1,0 +1,9 @@
+Seminaari/*
+
+*.aux
+*.dvi
+*.out
+*.pdf
+*.toc
+*.log
+*.synctex.gz

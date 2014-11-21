@@ -1,0 +1,41 @@
+\section{Syntax}
+\label{syntax}
+
+\subsection{Program}
+\label{program}
+A program is any single valid file.
+A program should contain executable, reachable code.
+A program can consist of multiple files combined using \hyperref[stat:include]{include}
+
+\subsection{File}
+\label{file}
+A source code file is any sequence of \hyperref[tld]{top level definitions}
+and \hyperref[statement]{statements} separated by line feeds.
+
+\subsection{Block}
+\label{block}
+A block is any sequence of \hyperref[statement]{statements} separated by line feeds.
+
+\subsection{Scope}
+\label{scope}
+The area where a single variable can be used is that variable's scope.
+The scope of any single variable consists of all the \hyperref[statement]{statements} and \hyperref[block]{blocks}
+after the \hyperref[stat:vardes]{variable definition} of that variable in the block the variable is defined.
+In this context a block can also be a \hyperref[file]{file}.
+
+\input{statement}
+
+\subsection{Expression}
+\label{expr}
+
+\subsection{Type}
+\label{type}
+
+\subsection{Top Level Definition}
+\label{tld}
+
+\subsection{Tokens}
+\label{tokens}
+
+\subsubsection{Underscore}
+\label{token:_}
