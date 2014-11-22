@@ -15,7 +15,7 @@ The definition must have either a \hyperref[type]{type} or an \hyperref[expr]{ex
 If only expression is defined, the type of the variable is the type of the \hyperref[expr]{expression}.
 If both \hyperref[type]{type} and \hyperref[expr]{expression} are defined, the \hyperref[expr]{expression} \hyperref[type]{type} is casted to \hyperref[type]{type}.
 
-\begin{grammar}
+\begin{grammar}%
 Dim <identifier> As <type>
 Dim <identifier> As <type> = <expression>
 Dim <identifier> = <expression>
@@ -27,7 +27,7 @@ A variable assignment assigns the value of evaluated expression to the variable 
 which is defined earlier in current scope or in one of its parent scopes.
 The assignment follows \hyperref[copying]{copying rules}.
 
-\begin{grammar}
+\begin{grammar}%
 <identifier>\sub{name} = <expression>
 \end{grammar}
 
@@ -43,7 +43,7 @@ If no $step$ is specified, $1$ is assumed.
 $start$, $end$ and $step$ must all be cast-able to \hyperref[type:Number]{number}.
 The index cannot be set with assignment.
 
-\begin{grammar}
+\begin{grammar}%
 For <identifier>\sub{index} = <expression>\sub{start} To <expression>\sub{end} [Step <expression>\sub{step}]
 ~~~~<block>\sub{body}
 Next <identifier>\sub{index}
@@ -64,7 +64,7 @@ The same happens when any of the $branch$es ends.
 
 All $cond$s must be cast-able to boolean.
 
-\begin{grammar}
+\begin{grammar}%
 If <expression>\sub{cond\_1} Then
 ~~~~<block>\sub{branch\_1}
 [
@@ -101,7 +101,7 @@ the $block$ is executed as long as the $cond$ evaluates $False$.
 The $cond$ must be cast-able to boolean.
 Only one condition may exist in one Do-Loop.
 
-\begin{grammar}
+\begin{grammar}%
 Do [While|Until <expression>\sub{cond}]
 ~~~~<block>
 Loop [While|Until <expression>\sub{cond}]
@@ -139,7 +139,7 @@ There may be multiple functions and sub-programs with the same name
 as long as they have different parameter signatures, i.e.
 they differ by number of parameters or by at least one parameter type.
 
-\begin{grammar}
+\begin{grammar}%
 Function <identifier>([[<ByRef>] <identifier>\sub{param} As <type>]*) As <type>
 ~~~~<block>
 End Function
