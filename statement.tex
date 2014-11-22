@@ -40,7 +40,7 @@ the $index$ is computed using $start + i \cdot step$,
 where $i \in [0, 1, 2 ...]$ is the number of iteration.
 If no $step$ is specified, $1$ is assumed.
 
-$start$, $end$ and $step$ must all be cast-able to \hyperref[type:number]{number}.
+$start$, $end$ and $step$ must all be cast-able to \hyperref[type:Number]{number}.
 The index cannot be set with assignment.
 
 \begin{grammar}
@@ -52,7 +52,7 @@ Next <identifier>\sub{index}
 \subsubsection{If}
 \label{stat:if}
 A if statement is a conditional branch.
-All $cond$-expressions must evaluate to \hyperref[type:boolean]{boolean}.
+All $cond$-expressions must evaluate to \hyperref[type:Boolean]{boolean}.
 First the $cond\_1$ is evaluated.
 If it is true,
 $branch\_2$ the execution is transferred to $branc\_1$.
@@ -114,3 +114,36 @@ Loop [While|Until <expression>\sub{cond}]
 
 \subsubsection{Include}
 \label{stat:include}
+
+
+\subsection{Top Level Definition}
+\label{tld}
+A Top Level Definition is a special case of \hyperref[statement]{statement}:
+it can only be located at the top level of a file.
+
+\subsubsection{Function Definition and Sub-program Definition}
+\label{tld:funcdef}
+User defined functions and sub-programs don't differ by that much:
+the only different is that the function can and must return a value.
+All paths to the end of the block in a function must contain a \hyperref[stat:return]{return} statement
+with appropriate type.
+
+Both functions and sub-programs can take arbitrary number of parameters.
+These parameters have types.
+Parameters are copied by default.
+If $ByRef$ is defined, the parameter may be passed as a reference,
+though this must also be explicitly stated at the call site.
+
+There may be multiple functions and sub-programs with the same name
+as long as they have different parameter signatures, i.e.
+they differ by number of parameters or by at least one parameter type.
+
+\begin{grammar}
+Function <identifier>([[<ByRef>] <identifier>\sub{param} As <type>]*) As <type>
+~~~~<block>
+End Function
+
+Sub <identifier>([<identifier>\sub{param} As <type>]*)
+~~~~<block>
+End Sub
+\end{grammar}

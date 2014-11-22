@@ -1,0 +1,145 @@
+\subsection{Expression}
+\label{expr}
+
+\subsubsection{Evaluation Order}
+\label{evalord}
+The binary operators in the expressions are evaluated in the following order:
+
+\begin{threeparttable}
+\begin{tabular}{l | l | l}
+    Operator     & Priority & Chain-able \\
+    \hline
+    $Or$         & 0        & Yes        \\
+    $And$        & 1        & Yes        \\
+    $Xor$        & 2        & Yes        \\
+    $=$          & 3        & No         \\
+    $<>$         & 3        & No         \\
+    $<$          & 3        & No         \\
+    $<=$         & 3        & No         \\
+    $>$          & 3        & No         \\
+    $>=$         & 3        & No         \\
+    $\&$         & 4        & Yes        \\
+    $+$          & 5        & Yes        \\
+    $-$          & 5        & Yes        \\
+    $/$          & 6        & Yes        \\
+    $\backslash$ & 6        & Yes        \\
+    $\ast$       & 6        & Yes        \\
+    $Mod$        & 6        & Yes        \\
+    $\wedge$     & 6        & Yes        \\
+\end{tabular}
+\end{threeparttable}
+
+Unary operators take the highest precedence
+so they are executed before any binary operator:
+
+\begin{threeparttable}
+\begin{tabular}{l | l}
+    Operator       & Position \\
+    \hline
+    $-$            & Prefix   \\
+    $Not$          & Prefix   \\
+    $[expression]$ & Postfix  \\
+\end{tabular}
+\end{threeparttable}
+
+Chain-ability means that multiple operators of that type can be chained, i.e.
+$1 + 2 + 3$, but not $a = b = c$.
+All chain-able operators are executed from left to the right, i.e.
+$1+2+3+4$ is same as $((1+2)+3)+4$.
+
+Before executing the operator, both of its sides are evaluated.
+The evaluation order can be controlled with parenthesis, i.e.
+$(1+2)*3$ evaluates to $9$.
+Compare to $1+2*3$ which evaluates to $7$.
+
+\subsubsection{Resolving Types}
+\label{typeresolve}
+\newcommand\type[1]{\hyperref[type:#1]{#1}}
+
+Types of binary operators are resolved according to the following table:
+
+\begin{threeparttable}
+    \begin{tabular}{l | l}
+        Binary Operator & Type \\
+        \hline
+        $And$, $Or$, $Xor$ &
+        \begin{tabular}{l}
+        $(\type{Boolean},\type{Boolean})\mapsto\type{Boolean}$\\
+        $(\type{Integer},\type{Integer})\mapsto\type{Integer}$\\
+        \end{tabular}\\
+        \hline
+        
+        $=$, $<>$, $<$, $<=$, $>$, $>=$ &
+        \begin{tabular}{l}
+        $(\type{Number},\type{Number})\mapsto\type{Number}$\\
+        $(\type{Integer},\type{Integer})\mapsto\type{Integer}$\\
+        $(\type{String},\type{String})\mapsto\type{String}$\\
+        \end{tabular}\\
+        \hline
+        
+        $\&$ &
+        \begin{tabular}{l}
+        $(\type{String},\type{String})\mapsto\type{String}$\\
+        \end{tabular}
+        \footnotemark[1]\\
+        \hline
+        
+        $+$, $-$, $*$, $\wedge$ &
+        \begin{tabular}{l}
+        $(\type{Number},\type{Number})\mapsto\type{Number}$\\
+        $(\type{Integer},\type{Integer})\mapsto\type{Integer}$\\
+        \end{tabular}
+        \footnotemark[2]\\
+        \hline
+        
+        $/$ &
+        \begin{tabular}{l}
+        $(\type{Number},\type{Number})\mapsto\type{Number}$\\
+        \end{tabular}
+        \footnotemark[3]\\
+        \hline
+        
+        $\backslash$, $Mod$ &
+        \begin{tabular}{l}
+        $(\type{Integer},\type{Integer})\mapsto\type{Integer}$\\
+        \end{tabular}
+        \footnotemark[4]\\
+    \end{tabular}
+    \begin{tablenotes}
+        \item[1] If other types are present, they are first casted to $\type{String}$.
+        \item[2] If $\type{Number}$ and $\type{Integer}$ are mixed together in the expression,
+                 both sides are first casted to $\type{Number}$.
+        \item[3] Performs double-division.
+                If other types are specified, they are first casted to $\type{Number}$.
+        \item[4] Performs integer-division.
+                 If other types are specified, they are first casted to $\type{Integer}$.
+    \end{tablenotes}
+\end{threeparttable}\\
+
+Types of unary operators are resolved according to the following table:
+
+\begin{threeparttable}
+    \begin{tabular}{l | l}
+        Unary Operator & Type \\
+        \hline
+        $-$ &
+        \begin{tabular}{l}
+        $\type{Number}\mapsto\type{Number}$\\
+        $\type{Integer}\mapsto\type{Integer}$\\
+        \end{tabular}\\
+        \hline
+        
+        $Not$ &
+        \begin{tabular}{l}
+        $\type{Boolean}\mapsto\type{Boolean}$\\
+        \end{tabular}\\
+        \hline
+        
+        $[expression]$ &
+        \begin{tabular}{l}
+        $\type{Array}~of~T\mapsto T$\\
+        \end{tabular}\\
+    \end{tabular}
+\end{threeparttable}
+
+\let\type\undefined
