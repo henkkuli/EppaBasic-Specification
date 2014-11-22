@@ -1,0 +1,60 @@
+\subsection{Type}
+\label{type}
+EppaBasic type system consist of language defined types, user defined types and derived types.
+Language defined base types are \hyperref[type:Integer]{Integer},
+\hyperref[type:Number]{Number}, \hyperref[type:String]{String} and \hyperref[type:Boolean]{Boolean}.
+Users can define their own types using \hyperref[tld:structdef]{structures}.
+Derived types are types, which are derived from other types,
+like \hyperref[type:Array]{arrays} and \hyperref[type:Function]{function types}.
+
+\subsubsection{Integer}
+\label{type:Integer}
+Integers are one of the base types in EppaBasic.
+They are always copyable, unless otherwise specified at a function call.
+Integers represent arbitrary precision integral numbers.
+
+\subsubsection{Number}
+\label{type:Number}
+Numbers are one of the base types in EppaBasic.
+They are always copyable, unless otherwise specified at a function call.
+Numbers represent a 64-bit IEEE 754 double-precision floating point numbers.
+
+\subsubsection{Double}
+\label{type:Double}
+Double is an alias for \hyperref[type:Number]{Number}.
+
+\subsubsection{Boolean}
+\label{type:Boolean}
+Booleans are one of the base types in EppaBasic.
+They are always copyable, unless otherwise specified at a function call.
+Booleans represent either $Ture$ or $False$.
+EppaBasic defines two global constants for these values: $True$ and $False$.
+
+\subsubsection{String}
+\label{type:String}
+Strings are one of the base types in EppaBasic.
+They are always copyable, unless otherwise specified at a function call.
+Strings represent Unicode strings.
+
+\subsubsection{Array}
+\label{type:Array}
+Strings are one of the base types in EppaBasic.
+They are always copyable, unless otherwise specified at a function call.
+Arrays represent an array (or table or list) of values of some specified type.
+
+Arrays are created using the following syntax:
+\begin{grammar}
+<type>\sub{base}[<expression>\sub{1}, <expression>\sub{2}, ... <expression>\sub{n}]
+\end{grammar}
+This defines a n-dimensional array ($n\in[1,2,3,...]$).
+Each expression defines the size of the corresponding dimension.
+Each expression must be cast-able to \hyperref[type:Integer]{Integer}.
+Indices in the i$^{th}$ dimension belong to $[0,1,2,...,size_i]$.
+The type of items in arrays are $base$.
+
+Note that the base type can be an array.
+
+\subsubsection{Function}
+\label{type:Function}
+The compiler should implement function types,
+though the exact syntax is not yet defined.

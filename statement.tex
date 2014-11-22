@@ -33,7 +33,7 @@ The assignment follows \hyperref[copying]{copying rules}.
 
 \subsubsection{For}
 \label{stat:for}
-A for statement loops its $body$ exactly $(end - start + 1) / step$ times
+A for statement loops its $body$ exactly $\lfloor(end - start + 1) / step\rfloor$ times
 unless the loop is explicitly exited using \token{break}.
 At the beginning of each iteration,
 the $index$ is computed using $start + i \cdot step$,
@@ -54,10 +54,11 @@ Next <identifier>\sub{index}
 A if statement is a conditional branch.
 All $cond$-expressions must evaluate to \hyperref[type:Boolean]{boolean}.
 First the $cond\_1$ is evaluated.
-If it is true,
-$branch\_2$ the execution is transferred to $branc\_1$.
+If it is true, the execution is transferred to $branc\_1$.
 Otherwise either next $cond$ in is evaluated if such exists
 or the execution is transferred to the $branch\_else$ if it exists.
+If the second $cond$ evaluates true, the excecution is transferred to $branch\_2$.
+Otherwise next $cond$ is checked.
 If neither exists the execution is transferred to the statement following $End If$.
 The same happens when any of the $branch$es ends.
 
@@ -147,3 +148,7 @@ Sub <identifier>([<identifier>\sub{param} As <type>]*)
 ~~~~<block>
 End Sub
 \end{grammar}
+
+
+\subsubsection{Structure Definition}
+\label{tld:structdef}
